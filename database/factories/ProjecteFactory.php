@@ -25,7 +25,7 @@ class ProjecteFactory extends Factory
         $estimatedEndDate = (clone $startDate)->modify('+'.rand(30, 180).' days');
 
         return [
-            'client_id' => Client::factory(), // Asocia a un cliente nuevo
+            'client_id' => Client::inRandomOrder()->first()->id,
             'gestor_id' => User::factory(),   // Asocia a un gestor nuevo (usuario)
             'nom' => $this->faker->catchPhrase(),
             'descripcio' => $this->faker->paragraph(),

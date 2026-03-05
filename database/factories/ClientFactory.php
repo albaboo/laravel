@@ -24,7 +24,7 @@ class ClientFactory extends Factory
             'email_contacte' => $this->faker->unique()->companyEmail(),
             'telefon' => $this->faker->phoneNumber(),
             'direccio' => $this->faker->address(),
-            'actiu' => $this->faker->boolean(90), // 90% chance de true
+            'actiu' => $this->faker->boolean(90), // 90% de que sea true
         ];
     }
 }
