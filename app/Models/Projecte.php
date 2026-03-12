@@ -48,7 +48,7 @@ class Projecte extends Model
 
     public function gestor(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'gestor_id');
     }
 
     public function usuaris(): BelongsToMany

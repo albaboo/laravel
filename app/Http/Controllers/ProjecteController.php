@@ -56,6 +56,7 @@ class ProjecteController extends Controller
 
             'pressupost_hores_estimades' => $request->pressupost_hores_estimades,
             'pressupost_hores_reals' => 0,
+            'codi_projecte' => ''
         ]);
 
         $any = date('Y');

@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Projecte::class)->withTimestamps();
     }
+
+    public function client(): HasOne
+    {
+        return $this->hasOne(Client::class);
+    }
 }

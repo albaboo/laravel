@@ -26,9 +26,14 @@ class Client extends Model
         'actiu' => 'boolean',
     ];
 
-    public function projectes(): Client|HasMany
+    public function projectes(): HasMany
     {
         return $this->hasMany(Projecte::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
