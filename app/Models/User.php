@@ -22,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'tarifa_hora',
+        'rol'
     ];
 
     /**
@@ -44,8 +46,14 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'tarifa_hora' => 'decimal:2'
         ];
     }
+
+    public const GESTOR = 'GESTOR';
+    public const ADMIN = 'ADMIN';
+    public const DESENVOLUPADOR = 'DESENVOLUPADOR';
+    public const CLIENT = 'CLIENT';
 
     public function projectesGestionats()
     {
