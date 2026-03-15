@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Client;
 use App\Models\Projecte;
 use App\Models\User;
+use DateMalformedStringException;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class ProjecteFactory extends Factory
      * Define the model's default state.
      *
      * @return array<string, mixed>
+     * @throws DateMalformedStringException
      */
     public function definition(): array
     {
@@ -26,7 +28,7 @@ class ProjecteFactory extends Factory
 
         return [
             'client_id' => Client::inRandomOrder()->first()->id,
-            'gestor_id' => User::factory(),   // Asocia a un gestor nuevo (usuario)
+            'gestor_id' => User::factory(),
             'nom' => $this->faker->catchPhrase(),
             'descripcio' => $this->faker->paragraph(),
             'codi_projecte' => strtoupper($this->faker->bothify('PROJ-#####')),

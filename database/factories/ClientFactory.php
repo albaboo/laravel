@@ -20,11 +20,11 @@ class ClientFactory extends Factory
     {
         return [
             'nombre' => $this->faker->company(),
-            'cif' => strtoupper($this->faker->bothify('?#######?')), // Ej: A123456B
+            'cif' => strtoupper($this->faker->bothify('?#######?')),
             'email_contacte' => $this->faker->unique()->companyEmail(),
             'telefon' => $this->faker->phoneNumber(),
             'direccio' => $this->faker->address(),
-            'actiu' => $this->faker->boolean(80), // 90% de que sea true
+            'actiu' => $this->faker->boolean(80),
         ];
     }
 }

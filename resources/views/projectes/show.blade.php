@@ -4,13 +4,13 @@
         <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             <h1>Detalls del projecte</h1>
             <h2>{{ $projecte->codi_projecte }} - {{ $projecte->nom }}</h2>
-            <p><strong>Descripció:</strong><br>
+            <p><b>Descripció:</b><br>
                 {{ $projecte->descripcio ?? 'Sense descripció' }}
             </p>
             <hr>
             <h3>Client</h3>
-            <p><strong>Nom:</strong> {{ $projecte->client->nombre }}</p>
-            <p><strong>CIF:</strong> {{ $projecte->client->cif }}</p>
+            <p><b>Nom:</b> {{ $projecte->client->nombre }}</p>
+            <p><b>CIF:</b> {{ $projecte->client->cif }}</p>
             <hr>
             <h3>Gestor</h3>
             <p>{{ $projecte->gestor->name }}</p>
@@ -37,9 +37,9 @@
         </span>
             <hr>
             <h3>Dates</h3>
-            <p><strong>Data inici:</strong> {{ $projecte->data_inici?->format('d/m/Y') }}</p>
-            <p><strong>Data fi prevista:</strong> {{ $projecte->data_fi_prevista?->format('d/m/Y') }}</p>
-            <p><strong>Data fi real:</strong> {{ $projecte->data_fi_real?->format('d/m/Y') }}</p>
+            <p><b>Data inici:</b> {{ $projecte->data_inici?->format('d/m/Y') }}</p>
+            <p><b>Data fi prevista:</b> {{ $projecte->data_fi_prevista?->format('d/m/Y') }}</p>
+            <p><b>Data fi real:</b> {{ $projecte->data_fi_real?->format('d/m/Y') }}</p>
             <hr>
             <h3>Canviar estat</h3>
             <form method="POST" action="{{ route('projectes.canviarEstat', $projecte) }}" style="margin-top: 10px;">

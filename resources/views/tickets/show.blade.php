@@ -1,39 +1,62 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1>{{ $ticket->codi_ticket }} - {{ $ticket->titol }}</h1>
-    <p>{{ $ticket->descripcio }}</p>
-    <p>Estat: {{ $ticket->estat }}</p>
+    <div style="padding: 20px; background-color: #f8f9fa; min-height: 100vh;">
+        <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+            <h1><b>{{ $ticket->codi_ticket }} - {{ $ticket->titol }}</b></h1>
+            <p>{{ $ticket->descripcio }}</p>
+            <p><b>Estat:</b> {{ $ticket->estat }}</p>
 
-    <h2>Comentaris</h2>
-    <ul>
-        @foreach($comentaris as $comentari)
-            <li>{{ $comentari->autor->name }}: {{ $comentari->text }}</li>
-        @endforeach
-    </ul>
+            <a style="padding: 6px 12px;
+                background-color: #212529;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;" href="{{ route('tickets.edit', [$projecte, $ticket]) }}">Editar Ticket</a>
 
-    <a href="{{ route('tickets.edit', [$projecte, $ticket]) }}">Editar Ticket</a>
+            <h2><b>Comentaris</b></h2>
 
-    <h3>Comentaris</h3>
+            <ul>
+                @foreach($ticket->comentaris as $comentari)
+                    <li>
+                        <b>{{ $comentari->autor->name }}:</b>
+                        {{ $comentari->text }}
+                        <br>
+                        <form action="{{ route('comentaris.destroy', $comentari) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="
+                padding: 6px 12px;
+                background-color: #dc3545;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 5px;
+            ">Eliminar</button>
+                        </form>
+                    </li>
+                @endforeach
+            </ul>
 
-    <ul>
-        @foreach($ticket->comentaris as $comentari)
-            <li>
-                <strong>{{ $comentari->autor->name }}:</strong>
-                {{ $comentari->text }}
-                <form action="{{ route('comentaris.destroy', $comentari) }}" method="POST" style="display:inline">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                </form>
-            </li>
-        @endforeach
-    </ul>
+            <h4>Afegir comentari</h4>
+            <form action="{{ route('comentaris.store', $ticket) }}" method="POST" style="margin-top: 10px;">
+                @csrf
+                <div style="margin-bottom: 12px;">
+                    <textarea name="text" style="padding: 5px 10px; border-radius: 4px; border: 1px solid #ced4da;" rows="3" placeholder="Escriu el teu comentari..."></textarea>
+                    <button type="submit" style="
+                padding: 6px 12px;
+                background-color: #0d6efd;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                margin-left: 5px;
+            ">Enviar</button>
+                </div>
 
-    <h4>Afegir comentari</h4>
-    <form action="{{ route('comentaris.store', $ticket) }}" method="POST">
-        @csrf
-        <textarea name="text" class="form-control" rows="3" placeholder="Escriu el teu comentari..."></textarea>
-        <button type="submit" class="btn btn-primary mt-2">Enviar</button>
-    </form>
+            </form>
+        </div>
+    </div>
+
 @endsection

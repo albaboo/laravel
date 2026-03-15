@@ -17,7 +17,10 @@ class ComentariController extends Controller
             'text'      => $request->text,
         ]);
 
-        return redirect()->route('tickets.show', $ticket)->with('success', 'Comentari afegit');
+        return redirect()->route('tickets.show', [
+            'projecte' => $ticket->projecte_id,
+            'ticket' => $ticket->id,
+        ])->with('success', 'Comentari afegit');
     }
 
     public function destroy(Comentari $comentari)
@@ -25,6 +28,9 @@ class ComentariController extends Controller
         $ticket = $comentari->ticket;
         $comentari->delete();
 
-        return redirect()->route('tickets.show', $ticket)->with('success', 'Comentari eliminat');
+        return redirect()->route('tickets.show', [
+            'projecte' => $ticket->projecte_id,
+            'ticket' => $ticket->id,
+        ])->with('success', 'Comentari eliminat');
     }
 }
