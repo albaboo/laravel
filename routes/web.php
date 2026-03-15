@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjecteController;
 use App\Http\Controllers\TicketController;
@@ -23,6 +24,9 @@ Route::prefix('projectes/{projecte}')->group(function () {
     Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
     Route::get('tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
     Route::put('tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
+    Route::post('tickets/{ticket}/comentaris', [ComentariController::class, 'store'])->name('comentaris.store')->middleware('auth');
+    //TODO: ACUERDATE DE PREGUNTAR SI VA AQUI??¿¿¿?¿
+    Route::delete('comentaris/{comentari}', [ComentariController::class, 'destroy'])->name('comentaris.destroy')->middleware('auth');
 });
 
 Route::get('/dashboard', function () {
