@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('projecte_id')->constrained('projectes')->ondelete('cascade');
+            $table->foreignId('creador_id')->constrained('users')->ondelete('cascade');
+            $table->string('codi_ticket')->unique();
+            $table->string('titol');
+            $table->text('descripcio')->nullable();
+            $table->enum('estat', ['NOU', 'OBERT', 'TANCAT'])->default('NOU');
             $table->timestamps();
         });
     }

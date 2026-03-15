@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -55,7 +57,7 @@ class User extends Authenticatable
     public const DESENVOLUPADOR = 'DESENVOLUPADOR';
     public const CLIENT = 'CLIENT';
 
-    public function projectesGestionats()
+    public function projectesGestionats(): HasMany
     {
         return $this->hasMany(Projecte::class);
     }
@@ -68,5 +70,15 @@ class User extends Authenticatable
     public function client(): HasOne
     {
         return $this->hasOne(Client::class);
+    }
+
+    public function ticketsCreats(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'creador_id');
+    }
+
+    public function comentaris(): HasMany
+    {
+        return $this->hasMany(Comentari::class, 'autor_id');
     }
 }

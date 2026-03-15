@@ -13,25 +13,11 @@ return new class extends Migration
     {
         Schema::create('configuracio_projectes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('projecte_id')
-                ->unique()
-                ->constrained('projectes')
-                ->cascadeOnDelete();
-
-            $table->enum('plantilla_correus', [
-                'FORMAL',
-                'INFORMAL',
-                'TECNICA'
-            ])->default('FORMAL');
-
-            $table->boolean('notificacions_actives')
-                ->default(true);
-
-            $table->text('workflow_personalitzat')
-                ->nullable();
-
-            $table->boolean('requereix_aprovacio_client')
-                ->default(false);
+            $table->foreignId('projecte_id')->unique()->constrained('projectes')->ondelete('cascade');
+            $table->enum('plantilla_correus', ['FORMAL','INFORMAL','TECNICA'])->default('FORMAL');
+            $table->boolean('notificacions_actives')->default(true);
+            $table->text('workflow_personalitzat')->nullable();
+            $table->boolean('requereix_aprovacio_client')->default(false);
             $table->timestamps();
         });
     }
