@@ -6,32 +6,50 @@
             @csrf
             <div style="margin-bottom: 15px;">
                 <label>Nom del projecte</label>
-                <input type="text" name="nom" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="text" name="nom" value="{{ old('nom') }}" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                @error('nom')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <div style="margin-bottom: 15px;">
                 <label>Client</label>
                 <select name="client_id" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
                     <option value="">Selecciona un client</option>
                     @foreach($clients as $client)
-                        <option value="{{ $client->id }}">{{ $client->nombre }}</option>
+                        <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>{{ $client->nombre }}</option>
                     @endforeach
                 </select>
+                @error('client_id')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <div style="margin-bottom: 15px;">
                 <label>Descripció</label>
-                <textarea name="descripcio" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+                <textarea name="descripcio" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">{{ old('descripcio') }}</textarea>
+                @error('descripcio')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <div style="margin-bottom: 15px;">
                 <label>Pressupost hores estimades</label>
-                <input type="number" name="pressupost_hores_estimades" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="number" name="pressupost_hores_estimades" value="{{ old('pressupost_hores_estimades') }}" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                @error('pressupost_hores_estimades')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <div style="margin-bottom: 15px;">
                 <label>Data inici</label>
-                <input type="date" name="data_inici" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="date" name="data_inici" value="{{ old('data_inici') }}"> style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                @error('data_inici')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <div style="margin-bottom: 20px;">
                 <label>Data fi prevista</label>
-                <input type="date" name="data_fi_prevista" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <input type="date" name="data_fi_prevista" value="{{ old('data_fi_prevista') }}" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                @error('data_fi_prevista')
+                <div style="color:red">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" style="
             padding: 10px 20px;

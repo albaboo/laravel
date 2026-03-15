@@ -17,10 +17,16 @@
                 <div style="margin-bottom: 12px;">
                     <label>Nom</label><br>
                     <input type="text" name="nom" value="{{ old('nom', $projecte->nom) }}" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ced4da;">
+                    @error('nom')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label>Descripció</label><br>
                     <textarea name="descripcio" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ced4da;">{{ old('descripcio', $projecte->descripcio) }}</textarea>
+                    @error('descripcio')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label>Estat</label><br>
@@ -29,18 +35,30 @@
                             <option value="{{ $estat }}" {{ $projecte->estat == $estat ? 'selected' : '' }}>{{ $estat }}</option>
                         @endforeach
                     </select>
+                    @error('estat')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label>Data inici</label><br>
                     <input type="date" name="data_inici" value="{{ old('data_inici', $projecte->data_inici?->format('Y-m-d')) }}" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ced4da;">
+                    @error('data_inici')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label>Data fi prevista</label><br>
                     <input type="date" name="data_fi_prevista" value="{{ old('data_fi_prevista', $projecte->data_fi_prevista?->format('Y-m-d')) }}" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ced4da;">
+                    @error('data_fi_prevista')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div style="margin-bottom: 12px;">
                     <label>Pressupost hores estimades</label><br>
                     <input type="number" name="pressupost_hores_estimades" value="{{ old('pressupost_hores_estimades', $projecte->pressupost_hores_estimades) }}" required style="width:100%; padding:8px; border-radius:4px; border:1px solid #ced4da;">
+                    @error('pressupost_hores_estimades')
+                    <div style="color:red">{{ $message }}</div>
+                    @enderror
                 </div>
                 <button type="submit" style="
                 padding: 10px 20px;
