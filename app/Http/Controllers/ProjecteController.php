@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\ConfiguracioProjecte;
 use App\Models\Projecte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -63,6 +64,15 @@ class ProjecteController extends Controller
         $codi = 'PROJ-' . $any . '-' . $projecte->id;
 
         $projecte->update(['codi_projecte' => $codi]);
+
+        ConfiguracioProjecte::create([
+            'projecte_id' => $projecte->id,
+            'plantilla_correus' => 'FORNAL',
+            'notificacions_actives' => false,
+            'workflow_personalitzat' => '',
+            'requereix_aprovacio_client' => false,
+        ]);
+
         return redirect()->route('projectes.show', $projecte->id)->with('success', 'Projecte creat correctament');
     }
 

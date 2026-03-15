@@ -55,4 +55,9 @@ class Projecte extends Model
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
+
+    public function configuracio()
+    {
+        return $this->hasOne(ConfiguracioProjecte::class);
+    }
 }
