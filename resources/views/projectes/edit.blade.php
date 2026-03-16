@@ -3,7 +3,7 @@
     <div style="padding: 20px; background-color: #f8f9fa; min-height: 100vh;">
         <div style="background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
             <h1>Editar projecte</h1>
-            <form action="{{ route('projectes.update', $projecte->id) }}" method="POST" style="margin-top: 15px;">
+            <form action="{{ route('projectes.update', $projecte) }}" method="POST" style="margin-top: 15px;">
                 @csrf
                 @method('PUT')
                 <div style="margin-bottom: 12px;">
@@ -69,6 +69,19 @@
                 cursor: pointer;
             ">Actualitzar projecte</button>
             </form>
+            <a href="{{ route('projectes.index') }}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0d6efd;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    " onmouseover="this.style.backgroundColor='#0b5ed7'" onmouseout="this.style.backgroundColor='#0d6efd'">
+                Cancel·lar
+            </a>
         </div>
     </div>
 @endsection

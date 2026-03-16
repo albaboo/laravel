@@ -2,7 +2,7 @@
 @section('content')
     <div style="padding: 20px; background-color: #f8f9fa; min-height: 100vh;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h1 style="color: #212529;">Projectes de {{ $client->nombre }}</h1>
+            <h1 style="color: #212529;">Projectes de <b>{{ $client->nombre }}</b></h1>
         </div>
         @if($projectes->count() > 0)
             <table style="
@@ -17,6 +17,7 @@
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Nom</th>
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Gestor</th>
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Estat</th>
+                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tickets</th>
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Accions</th>
                 </tr>
                 </thead>
@@ -46,6 +47,7 @@
                         {{ $projecte->estat }}
                     </span>
                         </td>
+                        <td style="padding: 8px;">{{ $projecte->tickets()->count() ?? '-' }}</td>
                         <td style="padding: 8px;">
                             <a href="{{ route('projectes.show', $projecte) }}" style="color:#0d6efd;">Veure</a> |
                             <a href="{{ route('projectes.edit', $projecte) }}" style="color:#0d6efd;">Editar</a>

@@ -51,6 +51,7 @@
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">
                         Estat
                     </th>
+                    <th style="padding: 10px; border-bottom: 1px solid #ddd;">Tickets</th>
                     <th style="padding: 10px; border-bottom: 1px solid #ddd;">Accions</th>
                 </tr>
                 </thead>
@@ -81,6 +82,7 @@
                             {{ $projecte->estat }}
                         </span>
                         </td>
+                        <td style="padding: 8px;">{{ $projecte->tickets()->count() ?? '-' }}</td>
                         <td style="padding: 8px;">
                             <a href="{{ route('projectes.show', $projecte) }}" style="color:#0d6efd;">Veure</a> |
                             <a href="{{ route('projectes.edit', $projecte) }}" style="color:#0d6efd;">Editar</a>

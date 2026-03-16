@@ -63,5 +63,31 @@
                 Crear projecte
             </button>
         </form>
+        <a href="{{ route('projectes.index') }}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0d6efd;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    " onmouseover="this.style.backgroundColor='#0b5ed7'" onmouseout="this.style.backgroundColor='#0d6efd'">
+            Cancel·lar
+        </a>
+        <a href="{{ route('projectes.index') }}" style="
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #0d6efd;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    " onmouseover="this.style.backgroundColor='#0b5ed7'" onmouseout="this.style.backgroundColor='#0d6efd'">
+            Cancel·lar
+        </a>
     </div>
 @endsection

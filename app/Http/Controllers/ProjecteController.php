@@ -73,7 +73,7 @@ class ProjecteController extends Controller
             'requereix_aprovacio_client' => false,
         ]);
 
-        return redirect()->route('projectes.show', $projecte->id)->with('success', 'Projecte creat correctament');
+        return redirect()->route('projectes.show', $projecte)->with('success', 'Projecte creat correctament');
     }
 
     public function show(Projecte $projecte)
@@ -109,7 +109,7 @@ class ProjecteController extends Controller
             'pressupost_hores_estimades' => $request->pressupost_hores_estimades,
         ]);
 
-        return redirect()->route('projectes.show', $projecte->id)->with('success', 'Projecte actualitzat correctament');
+        return redirect()->route('projectes.show', $projecte)->with('success', 'Projecte actualitzat correctament');
     }
 
     public function canviarEstat(Request $request, Projecte $projecte)
