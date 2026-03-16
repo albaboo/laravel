@@ -17,13 +17,13 @@ Route::patch('/projectes/{projecte}/canviar-estat', [ProjecteController::class, 
 Route::resource('clients', ClientController::class)->middleware('auth');
 Route::get('/clients/{client}/projectes', [ClientController::class, 'projectes'])->name('clients.projectes')->middleware('auth');
 
-Route::prefix('projectes/{projecte}')->group(function () {
-    Route::get('tickets', [TicketController::class, 'index'])->name('tickets.index');
-    Route::get('tickets/create', [TicketController::class, 'create'])->name('tickets.create');
-    Route::post('tickets', [TicketController::class, 'store'])->name('tickets.store');
-    Route::get('tickets/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
-    Route::get('tickets/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
-    Route::put('tickets/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
+Route::prefix('projectes/{projecte}/tickets')->group(function () {
+    Route::get('', [TicketController::class, 'index'])->name('tickets.index');
+    Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
+    Route::post('', [TicketController::class, 'store'])->name('tickets.store');
+    Route::get('/{ticket}', [TicketController::class, 'show'])->name('tickets.show');
+    Route::get('/{ticket}/edit', [TicketController::class, 'edit'])->name('tickets.edit');
+    Route::put('/{ticket}', [TicketController::class, 'update'])->name('tickets.update');
 });
 Route::post('tickets/{ticket}/comentaris', [ComentariController::class, 'store'])->name('comentaris.store')->middleware('auth');
 Route::delete('comentaris/{comentari}', [ComentariController::class, 'destroy'])->name('comentaris.destroy')->middleware('auth');
