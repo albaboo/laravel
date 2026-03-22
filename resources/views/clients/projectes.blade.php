@@ -50,7 +50,9 @@
                         <td style="padding: 8px;">{{ $projecte->tickets()->count() ?? '-' }}</td>
                         <td style="padding: 8px;">
                             <a href="{{ route('projectes.show', $projecte) }}" style="color:#0d6efd;">Veure</a> |
+                            @can('update', $projecte)
                             <a href="{{ route('projectes.edit', $projecte) }}" style="color:#0d6efd;">Editar</a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach

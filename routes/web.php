@@ -11,13 +11,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('projectes', ProjecteController::class)->middleware('auth');
-Route::patch('/projectes/{projecte}/canviar-estat', [ProjecteController::class, 'canviarEstat'])->name('projectes.canviarEstat')->middleware('auth');
+Route::middleware(['auth', 'role:ADMIN,GESTOR'])->group(function () {
+    Route::resource('projectes', ProjecteController::class)
+        ->except(['index', 'show']);
+    Route::resource('clients', ClientController::class);
+});
 
-Route::resource('clients', ClientController::class)->middleware('auth');
-Route::get('/clients/{client}/projectes', [ClientController::class, 'projectes'])->name('clients.projectes')->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::resource('projectes', ProjecteController::class)
+        ->only(['index', 'show']);
+});
 
-Route::prefix('projectes/{projecte}/tickets')->group(function () {
+Route::patch('/projectes/{projecte}/canviar-estat', [ProjecteController::class, 'canviarEstat'])->name('projectes.canviarEstat')->middleware(['auth', 'role:ADMIN,GESTOR']);
+
+Route::resource('clients', ClientController::class)->middleware('auth')->middleware(['auth', 'role:ADMIN,GESTOR']);
+Route::get('/clients/{client}/projectes', [ClientController::class, 'projectes'])->name('clients.projectes')->middleware(['auth', 'role:ADMIN,GESTOR']);
+
+Route::middleware('auth')->prefix('projectes/{projecte}/tickets')->group(function () {
     Route::get('', [TicketController::class, 'index'])->name('tickets.index');
     Route::get('/create', [TicketController::class, 'create'])->name('tickets.create');
     Route::post('', [TicketController::class, 'store'])->name('tickets.store');

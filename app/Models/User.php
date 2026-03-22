@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -49,14 +50,10 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'tarifa_hora' => 'decimal:2'
+            'tarifa_hora' => 'decimal:2',
+            'rol' => Role::class,
         ];
     }
-
-    public const GESTOR = 'GESTOR';
-    public const ADMIN = 'ADMIN';
-    public const DESENVOLUPADOR = 'DESENVOLUPADOR';
-    public const CLIENT = 'CLIENT';
 
     public function projectesGestionats(): HasMany
     {
@@ -81,5 +78,10 @@ class User extends Authenticatable
     public function comentaris(): HasMany
     {
         return $this->hasMany(Comentari::class, 'autor_id');
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return in_array($this->rol, $roles);
     }
 }

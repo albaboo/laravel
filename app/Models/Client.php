@@ -20,6 +20,7 @@ class Client extends Model
         'telefon',
         'direccio',
         'actiu',
+        'user_id',
     ];
 
     protected $casts = [

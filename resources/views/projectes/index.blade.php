@@ -12,7 +12,8 @@
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     ">
             <h1 style="margin:0; color: #212529;">Llista de projectes</h1>
-            <a href="{{ route('projectes.create') }}" style="
+            @can('create', App\Models\Projecte::class)
+                <a href="{{ route('projectes.create') }}" style="
             padding: 8px 16px;
             background-color: #0d6efd;
             color: white;
@@ -20,9 +21,12 @@
             border-radius: 5px;
             font-weight: bold;
         ">Crear projecte</a>
+            @endcan
         </div>
         <div id="filters">
-            <select style="width: 100%; margin: 10px"><option value="">Filtrar Client</option></select>
+            <select style="width: 100%; margin: 10px">
+                <option value="">Filtrar Client</option>
+            </select>
             <select style="width: 100%; margin: 10px">
                 <option value="">Filtrar Estado</option>
                 <option value="PLANIFICACIO">PLANIFICACIO</option>
@@ -84,8 +88,13 @@
                         </td>
                         <td style="padding: 8px;">{{ $projecte->tickets()->count() ?? '-' }}</td>
                         <td style="padding: 8px;">
-                            <a href="{{ route('projectes.show', $projecte) }}" style="color:#0d6efd;">Veure</a> |
-                            <a href="{{ route('projectes.edit', $projecte) }}" style="color:#0d6efd;">Editar</a>
+                            @can('view', $projecte)
+                                <a href="{{ route('projectes.show', $projecte) }}" style="color:#0d6efd;">Veure</a>
+                            @endcan
+                            |
+                            @can('update', $projecte)
+                                <a href="{{ route('projectes.edit', $projecte) }}" style="color:#0d6efd;">Editar</a>
+                            @endcan
                         </td>
                     </tr>
                 @endforeach
@@ -97,13 +106,13 @@
 
         @push('scripts')
             <script>
-                $(document).ready(function() {
+                $(document).ready(function () {
                     var table = $('#projectes-table').DataTable({
                         pageLength: 10
                     });
 
-                    table.column(2).data().unique().sort().each(function(d){
-                        $('#filters select').eq(0).append('<option value="'+d+'">'+d+'</option>');
+                    table.column(2).data().unique().sort().each(function (d) {
+                        $('#filters select').eq(0).append('<option value="' + d + '">' + d + '</option>');
                     });
 
                     $('#filters select').eq(0).on('change', function () {

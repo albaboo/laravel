@@ -5,26 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\ConfiguracioProjecte;
 use App\Models\Projecte;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 
-class ProjecteController extends Controller
+class ProjecteController
 {
     public function index()
     {
-        $projectes = Projecte::all();
-        return view('projectes.index', ['projectes' => $projectes]);
+        $this->authorize('viewAny', Projecte::class);
+        $user = auth()->user();
+        $projectes = match ($user->rol) {
+            Role::ADMIN, Role::GESTOR => Projecte::query(),
+            Role::CLIENT => Projecte::where('client_id', $user->client()->id),
+            Role::DEVELOPER => Projecte::whereHas('usuaris', fn($q) => $q->where('user_id', $user->id)),
+        };
+
+        return view('projectes.index', ['projectes' => $projectes->get()]);
     }
 
     public function create()
     {
+        $this->authorize('create', Projecte::class);
         $clients = Client::where('actiu', true)->orderBy('nombre')->get();
         return view('projectes.create', compact('clients'));
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Projecte::class);
         $request->validate([
             'client_id' => [
                 'required',
@@ -78,19 +88,21 @@ class ProjecteController extends Controller
 
     public function show(Projecte $projecte)
     {
+        $this->authorize('view', $projecte);
         $projecte->load(['client', 'gestor']);
-
         return view('projectes.show', compact('projecte'));
     }
 
     public function edit(Projecte $projecte)
     {
+        $this->authorize('update', $projecte);
         $projecte->load(['client', 'gestor']);
         return view('projectes.edit', compact('projecte'));
     }
 
     public function update(Request $request, Projecte $projecte)
     {
+        $this->authorize('update', $projecte);
         $request->validate([
             'nom' => 'required|string|max:255',
             'descripcio' => 'nullable|string',
@@ -114,6 +126,7 @@ class ProjecteController extends Controller
 
     public function canviarEstat(Request $request, Projecte $projecte)
     {
+        $this->authorize('update', $projecte);
         $request->validate([
             'estat' => 'required|in:PLANIFICACIO,EN_CURS,PAUSAT,FINALIZAT,CANCELAT'
         ]);

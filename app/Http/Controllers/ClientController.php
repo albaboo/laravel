@@ -9,17 +9,20 @@ class ClientController
 {
     public function index()
     {
+        $this->authorize('viewAny', Client::class);
         $clients = Client::where('actiu', true)->get();
         return view('clients.index', ['clients' => $clients]);
     }
 
     public function create()
     {
+        $this->authorize('create');
         return view('clients.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create');
         $request->validate([
             'nombre' => 'required|string|max:255',
             'cif' => 'required|string|max:50|unique:clients,cif',
@@ -42,16 +45,19 @@ class ClientController
 
     public function show(Client $client)
     {
+        $this->authorize('view', $client);
         return view('clients.show', compact('client'));
     }
 
     public function edit(Client $client)
     {
+        $this->authorize('update', $client);
         return view('clients.edit', compact('client'));
     }
 
     public function update(Request $request, Client $client)
     {
+        $this->authorize('update', $client);
         $request->validate([
             'nombre' => 'required|string|max:255',
             'cif' => 'required|string|max:50|unique:clients,cif,' . $client->id,
@@ -75,6 +81,7 @@ class ClientController
 
     public function projectes(Client $client)
     {
+        $this->authorize('view', $client);
         $projectes = $client->projectes()->with('gestor')->get();
 
         return view('clients.projectes', compact('client', 'projectes'));
