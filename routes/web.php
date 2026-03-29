@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ComentariController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjecteController;
+use App\Http\Controllers\RegistreTempsController;
 use App\Http\Controllers\TicketController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,11 @@ Route::delete('comentaris/{comentari}', [ComentariController::class, 'destroy'])
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tickets/{ticket}/temps/create', [RegistreTempsController::class, 'create'])->name('registreTemps.create');
+    Route::post('/tickets/{ticket}/temps', [RegistreTempsController::class, 'store'])->name('registreTemps.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

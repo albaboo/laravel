@@ -6,14 +6,28 @@
             <h1><b>{{ $ticket->codi_ticket }} - {{ $ticket->titol }}</b></h1>
             <p>{{ $ticket->descripcio }}</p>
             <p><b>Estat:</b> {{ $ticket->estat }}</p>
+            <p><b>Hores:</b> {{ $ticket->registresTemps()->sum('hores') }}</p>
+            <h3>Registres de temps</h3>
+            @foreach ($ticket->registresTemps as $registre)
+                <div>
+                    <strong>{{ $registre->user->name }}</strong>
+                    -
+                    {{ $registre->hores }}h
+                    -
+                    {{ $registre->data->format('d/m/Y') }}
 
+                    <p>{{ $registre->descripcio }}</p>
+                </div>
+            @endforeach
             <a style="padding: 6px 12px;
                 background-color: #212529;
                 color: white;
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;" href="{{ route('tickets.edit', [$projecte, $ticket]) }}">Editar Ticket</a>
-
+            @can('update', $ticket)
+                <a href="{{ route('registreTemps.create', $ticket) }}">Registrar temps</a>
+            @endcan
             <h2><b>Comentaris</b></h2>
 
             <ul>

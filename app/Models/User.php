@@ -80,6 +80,11 @@ class User extends Authenticatable
         return $this->hasMany(Comentari::class, 'autor_id');
     }
 
+    public function registresTemps()
+    {
+        return $this->hasMany(RegistreTemps::class);
+    }
+
     public function hasAnyRole(array $roles): bool
     {
         return in_array($this->rol, $roles);

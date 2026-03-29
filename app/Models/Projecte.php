@@ -43,27 +43,27 @@ class Projecte extends Model
     public const FINALIZAT = 'FINALIZAT';
     public const CANCELAT = 'CANCELAT';
 
-    public function client(): BelongsTo
+    public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function gestor(): BelongsTo
+    public function gestor()
     {
         return $this->belongsTo(User::class, 'gestor_id');
     }
 
-    public function usuaris(): BelongsToMany
+    public function usuaris()
     {
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
-    public function configuracio(): HasOne
+    public function configuracio()
     {
         return $this->hasOne(ConfiguracioProjecte::class);
     }
 
-    public function tickets(): HasMany
+    public function tickets()
     {
         return $this->hasMany(Ticket::class);
     }

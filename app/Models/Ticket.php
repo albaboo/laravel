@@ -36,4 +36,19 @@ class Ticket extends Model
     {
         return $this->hasMany(Comentari::class);
     }
+
+    public function registresTemps()
+    {
+        return $this->hasMany(RegistreTemps::class);
+    }
+
+    public function pare()
+    {
+        return $this->belongsTo(Ticket::class, 'ticket_pare_id');
+    }
+
+    public function fills()
+    {
+        return $this->hasMany(Ticket::class, 'ticket_pare_id');
+    }
 }
