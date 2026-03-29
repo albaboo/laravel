@@ -55,7 +55,7 @@ class Projecte extends Model
 
     public function usuaris()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class, 'projecte_user');
     }
 
     public function configuracio()

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('titol');
             $table->text('descripcio')->nullable();
             $table->enum('estat', ['NOU', 'ASSIGNAT', 'EN_PROGRES', 'EN_REVISIO', 'TANCAT'])->default('NOU');
+            $table->foreignId('ticket_pare_id')->nullable()->constrained('tickets')->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -74,6 +74,7 @@ class ProjecteController
         $codi = 'PROJ-' . $any . '-' . $projecte->id;
 
         $projecte->update(['codi_projecte' => $codi]);
+        $projecte->usuaris()->attach(Auth::id());
 
         ConfiguracioProjecte::create([
             'projecte_id' => $projecte->id,
